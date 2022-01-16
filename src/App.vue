@@ -1,19 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <section>
+      <label for="txt_task">Tarea</label>
+      <input
+        id="txt_task"
+        type="text"
+        v-model="task"
+        placeholder="ingrese nueva tarea"
+      />
+      <button @click="addTask">Agregar</button>
+    </section>
+    <section>
+      <ToDoList :tasks="tasks" :deleteTaks="deleteTaks" />
+    </section>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ToDoList from "@/components/ToDoList.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    TodoList,
+  },
+  data() {
+    return {
+      task: "",
+      tasks: [],
+    };
+  },
+  methods: {
+    addTask() {
+      const { task } = this;
+      this.tasks.push(task);
+    },
+    deleteTaks(indexTask) {
+      this.tasks.splice(indexTask, 1);
+    },
+  },
+};
 </script>
 
 <style>
@@ -24,5 +49,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+label {
+  font-weight: 700;
+  margin: 0rem 1rem;
+}
+button {
+  padding: 0.1rem 0.75rem;
+  margin: 0rem 1rem;
 }
 </style>
